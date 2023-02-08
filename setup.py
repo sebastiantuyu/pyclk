@@ -9,7 +9,9 @@ if __name__ == "__main__":
       'cli.py'
     ],
     install_requires=[
-      'pyyaml'
+      'pyyaml',
+      'simple-chalk',
+      'spinners'
     ],
     entry_points={
       'console_scripts': [
