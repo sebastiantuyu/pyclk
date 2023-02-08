@@ -1,6 +1,5 @@
 import os,yaml
 from ..utils.context import Context
-from ..utils.utils import run_hooks
 from ..utils.logger import completed_process, loading_process
 from spinners import Spinners
 from threading import Thread
@@ -10,7 +9,7 @@ def install():
   root_path = Context.root_path
   with open(os.path.join(root_path, 'reqs.yaml'), 'r') as stream:
     Context.project = yaml.safe_load(stream)
-  
+
   packages_list = " ".join(Context.project['packages'])
 
   if not os.path.isdir(os.path.join(root_path, 'python_modules')):
@@ -31,8 +30,6 @@ def install():
     "site-packages"
   )
 
-  print(f"Installing packages in {path_to_env_folder}...")
-
   Context.args['c_process'] = True
   p_log = Thread(target=loading_process, args=["Installing full project..."])
   p_install = Thread(target=os.system, args=[f"pip install --quiet {packages_list} --target {path_to_env_folder} --upgrade"])
@@ -43,9 +40,3 @@ def install():
   p_log.join()
 
   completed_process("\nProject installed successfully")
-  ###################
-  #                 #
-  #    Run hooks    #
-  #                 #
-  ###################
-  run_hooks('install')

@@ -9,23 +9,11 @@ class _ServiceContext:
     }
     self.project = {}
     self.args = {}
+    self.commands = {}
 
-  def set_config(self, config):
-    self.config = config
-  
-  def set_root_path(self, root_path):
-    self.root_path = root_path
-
-  def set_config_file_path(self, config_file_path):
-    self.config_file_path = config_file_path
-  
-  def get_config(self):
-    return self.config
-  
-  def get_root_path(self):
-    return self.root_path
-  
-  def get_config_file_path(self):
-    return self.config_file_path
+  def get_command(self, cmd):
+    return getattr(
+      getattr((self.commands), cmd),
+    cmd)
 
 Context = _ServiceContext()

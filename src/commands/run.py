@@ -1,7 +1,6 @@
-import os, yaml 
+import os, yaml
 from ..utils.context import Context
 from ..utils.utils import check_project
-from ..utils.utils import run_hooks
 
 def run():
   config = Context.config
@@ -21,5 +20,3 @@ def run():
     )
   except ResourceWarning as e:
     print(e)
-  
-  run_hooks('run')

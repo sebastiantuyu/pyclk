@@ -1,6 +1,5 @@
 import os,yaml
 from ..utils.context import Context
-from ..utils.utils import run_hooks
 import subprocess
 
 def activate():
@@ -11,10 +10,3 @@ def activate():
     print("Hint: ")
     print(" source ./python_modules/bin/activate")
     print("")
-
-  ###################
-  #                 #
-  #    Run hooks    #
-  #                 #
-  ###################
-  run_hooks('activate')

@@ -1,5 +1,5 @@
 from .context import Context
-from simple_chalk import chalk
+from .chalk import chalk
 import os
 
 def check_project(project_name):  
@@ -9,12 +9,12 @@ def check_project(project_name):
 
 
 def run_hooks(command_name):
-  print("\n")
-  print("Running hooks")
   try:
     total_hooks = len(Context.config['hooks'][command_name])
+    print("\n")
+    print("Running hooks")
     for c, hook in enumerate(Context.config['hooks'][command_name]):
-      print(chalk.cyan(f"[{c +1}/{total_hooks}]: {hook}"))
+      chalk.cyan(f"[{c +1}/{total_hooks}]: {hook}")
       print("====================")
       os.system(f"{hook}")
       print("====================\n")

@@ -1,5 +1,5 @@
 from __future__ import print_function
-from simple_chalk import chalk
+from .chalk import chalk
 from .context import Context
 
 import os
@@ -105,4 +105,4 @@ def loading_process(cmd):
 
 
 def completed_process(cmd):
-    print(chalk.green(cmd))
+    chalk.green(cmd)

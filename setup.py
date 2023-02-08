@@ -10,7 +10,6 @@ if __name__ == "__main__":
     ],
     install_requires=[
       'pyyaml',
-      'simple-chalk',
       'spinners'
     ],
     entry_points={
