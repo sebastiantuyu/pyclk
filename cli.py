@@ -1,5 +1,6 @@
 
 import os, yaml, sys
+from src.commands.install import install
 
 root_path = os.getcwd()
 config_file_path = os.path.join(root_path, 'pyclk.yaml')
@@ -38,27 +39,12 @@ def run(args):
   except:
     print("Error: Reqs file not found in project.")
 
-def install():
-  global project_config
-  print("Installing full project...")
-  with open(os.path.join(root_path, 'reqs.yaml'), 'r') as stream:
-    project_config = yaml.safe_load(stream)
-  packages_list = " ".join(project_config['packages'])
-
-  print(os.path.isdir(os.path.join(root_path, 'python_modules')))
-  if not os.path.isdir(os.path.join(root_path, 'python_modules')):
-    print("Creating python_modules folder...")
-    os.system(f'cd {root_path}\npython3 -m venv python_modules')
-
-  path_to_env_folder = os.path.join(root_path, "python_modules", "bin", "activate")
-  os.system(f"source {path_to_env_folder} && pip install {packages_list}")
-
 def run_command(cmd, args):
   print(cmd)
   if cmd == 'run':
     run(args)
   elif cmd == 'install':
-    install()
+    install(root_path)
   elif cmd == 'version':
     print('0.0.1')
   else:

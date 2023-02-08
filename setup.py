@@ -5,9 +5,6 @@ if __name__ == "__main__":
   setup(
     name='pyclk',
     version='0.0.1',
-    scripts=[
-      'cli.py'
-    ],
     entry_points={
       'console_scripts': [
         'pyclk = cli:main'
