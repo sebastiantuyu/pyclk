@@ -31,8 +31,6 @@ def install():
     "site-packages"
   )
 
-  print(f"Installing packages in {path_to_env_folder}...")
-
   Context.args['c_process'] = True
   p_log = Thread(target=loading_process, args=["Installing full project..."])
   p_install = Thread(target=os.system, args=[f"pip install --quiet {packages_list} --target {path_to_env_folder} --upgrade"])

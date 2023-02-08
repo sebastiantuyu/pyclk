@@ -6,6 +6,7 @@ from src.commands.build import build
 from src.commands.activate import activate
 from src.utils.context import Context
 from src.utils.logger import loading_process
+from src.utils.chalk import chalk
 
 
 Context.set_root_path(os.getcwd())
@@ -49,7 +50,7 @@ def main():
   read_config()
   (command, project) = read_args()
   if command is None:
-    print("PyCLK v0.0.1")
+    chalk.green("PyCLK v0.0.1")
     sys.exit(0)
   Context.command['args'] = project
   Context.command['command'] = command
