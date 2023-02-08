@@ -1,10 +1,11 @@
 
-import yaml
-import os
+import os, yaml, sys
 
 root_path = os.getcwd()
 config_file_path = os.path.join(root_path, 'pyclk.yaml')
-config = {}
+config = {
+  'services': {}
+}
 
 def read_config():
   global config
@@ -14,7 +15,61 @@ def read_config():
   except:
     print("Error: Could not load config file.")
 
-def main():
-  read_config()
+def read_args():
+  if len(sys.argv) > 2:
+    return (sys.argv[1], sys.argv[2])
+  else:
+    return (sys.argv[1], None)
 
-  print("Running PyClk...")
+def run(args):
+  if args not in config['services']:
+    print("Error: Project not found.")
+    print("Hint: Remember to add your project to pyclk.yaml")
+    return
+
+  global inner_config
+  app_relative_path = os.path.join(root_path, config['services'][args]['path'])
+  try:
+    with open(os.path.join(app_relative_path, 'reqs.yaml'), 'r') as stream:
+      inner_config = yaml.safe_load(stream)
+    os.system(
+      f"cd {app_relative_path}\n{inner_config['scripts']['run']}"
+    )
+  except:
+    print("Error: Reqs file not found in project.")
+
+def install():
+  global project_config
+  print("Installing full project...")
+  with open(os.path.join(root_path, 'reqs.yaml'), 'r') as stream:
+    project_config = yaml.safe_load(stream)
+  packages_list = " ".join(project_config['packages'])
+
+  print(os.path.isdir(os.path.join(root_path, 'python_modules')))
+  if not os.path.isdir(os.path.join(root_path, 'python_modules')):
+    print("Creating python_modules folder...")
+    os.system(f'cd {root_path}\npython3 -m venv python_modules')
+
+  path_to_env_folder = os.path.join(root_path, "python_modules", "bin", "activate")
+  os.system(f"source {path_to_env_folder} && pip install {packages_list}")
+
+def run_command(cmd, args):
+  print(cmd)
+  if cmd == 'run':
+    run(args)
+  elif cmd == 'install':
+    install()
+  elif cmd == 'version':
+    print('0.0.1')
+  else:
+    print("Error: Command not found")
+
+def main():
+  """
+    Execute validation checks,
+    and parse config files
+  """
+  read_config()
+  (command, project) = read_args()
+
+  run_command(command, project)
