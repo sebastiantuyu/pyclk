@@ -8,6 +8,9 @@ if __name__ == "__main__":
     scripts=[
       'cli.py'
     ],
+    install_requires=[
+      'pyyaml'
+    ],
     entry_points={
       'console_scripts': [
         'pyclk = cli:main'
