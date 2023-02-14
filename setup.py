@@ -1,10 +1,14 @@
 from setuptools import setup
+import yaml
+
+with open("reqs.yaml", "r") as f:
+  version = yaml.safe_load(f)["version"]
 
 if __name__ == "__main__":
   print("Running setup.py")
   setup(
     name='pyclk',
-    version='0.0.1',
+    version=version,
     scripts=[
       'cli.py'
     ],

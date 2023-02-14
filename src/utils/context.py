@@ -10,6 +10,7 @@ class _ServiceContext:
     self.project = {}
     self.args = {}
     self.commands = {}
+    self.version = ""
 
   def get_command(self, cmd):
     return getattr(

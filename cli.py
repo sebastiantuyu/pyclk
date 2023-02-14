@@ -2,10 +2,6 @@
 import os, yaml, sys
 from inspect import getmembers
 import src
-# from src.commands.install import install
-# from src.commands.run import run
-# from src.commands.build import build
-# from src.commands.activate import activate
 from src.utils.context import Context
 from src.utils.logger import loading_process
 from src.utils.chalk import chalk
@@ -15,6 +11,15 @@ from src.utils.utils import run_hooks
 Context.root_path = os.getcwd()
 Context.config_file_path = os.path.join(Context.root_path, 'pyclk.yaml')
 Context.commands = getattr(sys.modules['src'], 'commands')
+
+#########################
+#                       #
+#   @pending changes    #
+#   load version        #
+#                       #
+#########################
+with open("reqs.yaml", "r") as f:
+  Context.version = yaml.safe_load(f)["version"]
 
 def read_config():
   global config
@@ -50,7 +55,7 @@ def main():
   read_config()
   (command, project) = read_args()
   if command is None:
-    chalk.green("PyCLK v0.0.1")
+    chalk.green(f"PyCLK v{Context.version}")
     sys.exit(0)
 
   Context.command['args'] = project
